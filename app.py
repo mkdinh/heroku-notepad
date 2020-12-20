@@ -1,7 +1,8 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 # from flask_sqlalchemy import SQLAlchemy
 from flask_pymongo import PyMongo
 from os import environ
+import json
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = environ.get(
@@ -24,7 +25,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/api/tasks')
+@app.route('/tasks')
 def tasks():
     # tasks = db.session.query(Task)
     tasks = mongo.db.tasks.find({})
@@ -32,8 +33,9 @@ def tasks():
 
     for task in tasks:
         item = {
-            'id': task._id,
-            'description': task.description
+            # "id": task.id,
+            "_id": str(task['_id']),
+            "description": task['description']
         }
         data.append(item)
 

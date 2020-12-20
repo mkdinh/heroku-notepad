@@ -1,14 +1,14 @@
-function loadTasks() {
-  d3.json("/api/tasks").then((tasks) => {
-    var listGroup = d3.select("#tasks");
-    listGroup.html("");
+function fetchTasks() {
+  d3.json("/tasks").then((tasks) => {
+    var list = d3.select("#tasks");
+    list.html("");
 
     tasks.forEach((task) => {
-      var listItem = listGroup.append("li");
-      listItem.attr("class", "list-group-item");
-      listItem.text(task.description);
+      var item = list.append("li");
+      item.classed("list-group-item", true);
+      item.text(task.description);
     });
   });
 }
 
-loadTasks();
+fetchTasks();
