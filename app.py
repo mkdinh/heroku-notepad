@@ -27,12 +27,12 @@ def index():
 @app.route('/api/tasks')
 def tasks():
     # tasks = db.session.query(Task)
-    tasks = mongo.db.tasks.find()
+    tasks = mongo.db.tasks.find({})
     data = []
 
     for task in tasks:
         item = {
-            'id': task.id,
+            'id': task._id,
             'description': task.description
         }
         data.append(item)
